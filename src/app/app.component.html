@@ -1,0 +1,13 @@
+<div class="container" role="main">
+<app-header class="header"></app-header>
+  <!-- Creates a layout with a left-positioned sidenav and explicit content. -->
+  <mat-sidenav-container class="sidebar">
+    <mat-sidenav mode="side" opened>
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+<app-footer class="footer"></app-footer>
+

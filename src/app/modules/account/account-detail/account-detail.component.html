@@ -1,0 +1,27 @@
+<ng-container>
+  <form [formGroup]="form"  (submit)="onSubmit()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Account</mat-card-title>
+        <mat-card-subtitle>Present Account In The chain by address</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+
+      </mat-card-content>
+      <label for="address"></label>
+      <input type="text" name="address" id="address" formControlName="address">
+      <mat-card-actions>
+        <button mat-button type="submit">Get Account</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Account Details</mat-card-title>
+        <mat-card-subtitle>Search Account by Address</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+
+      </mat-card-content>
+    </mat-card>
+  </form>
+</ng-container>
