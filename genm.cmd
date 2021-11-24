@@ -1,0 +1,1 @@
+ng generate component %1  --module %2 --change-detection "Default"  --interactive  --export

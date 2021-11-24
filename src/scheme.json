@@ -1,0 +1,541 @@
+{
+    "openapi" : "3.0.3",
+    "info" : {
+      "title" : "API",
+      "description" : "Blockchain Initiative",
+      "termsOfService" : "MIT",
+      "contact" : {
+        "name" : "Blockchain API Support",
+        "url" : "http://afroware.com/contact",
+        "email" : "blocs@afroware.com"
+      },
+      "license" : {
+        "name" : "Apache 2.0",
+        "url" : "https://www.apache.org/licenses/LICENSE-2.0.html"
+      },
+      "version" : "1.0.1"
+    },
+    "paths" : {
+      "/api/account/{address}" : {
+        "get" : {
+          "tags" : [ "Ethereum Controller" ],
+          "parameters" : [ {
+            "name" : "address",
+            "in" : "path",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "OK"
+            }
+          }
+        }
+      },
+      "/api/accounts" : {
+        "get" : {
+          "tags" : [ "Ethereum Controller" ],
+          "responses" : {
+            "200" : {
+              "description" : "OK"
+            }
+          }
+        }
+      },
+      "/api/contracts/deploy/soccerManager" : {
+        "post" : {
+          "tags" : [ "Ethereum Controller" ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DeployContractDto"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/wallets/create" : {
+        "post" : {
+          "tags" : [ "Ethereum Controller" ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CreateWalletDto"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/WalletDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/wallets/get" : {
+        "post" : {
+          "tags" : [ "Ethereum Controller" ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GetWalletAddressDto"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/Credentials"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/wallets/transfer" : {
+        "post" : {
+          "tags" : [ "Ethereum Controller" ],
+          "requestBody" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TransferDto"
+                }
+              }
+            }
+          },
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/EthSendTransaction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/wallets/{address}/balance" : {
+        "get" : {
+          "tags" : [ "Ethereum Controller" ],
+          "parameters" : [ {
+            "name" : "address",
+            "in" : "path",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "type" : "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/health" : {
+        "summary" : "MicroProfile Health provides a way for your application to distribute information about its healthiness state to state whether or not it is able to function properly",
+        "description" : "MicroProfile Health Endpoint",
+        "get" : {
+          "tags" : [ "MicroProfile Health" ],
+          "summary" : "An aggregated view of the Liveness, Readiness and Startup of this application",
+          "description" : "Check the health of the application",
+          "operationId" : "microprofile_health_root",
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            },
+            "503" : {
+              "description" : "Service Unavailable",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            },
+            "500" : {
+              "description" : "Internal Server Error",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/health/live" : {
+        "summary" : "Liveness checks are utilized to tell whether the application should be restarted",
+        "description" : "MicroProfile Health - Liveness Endpoint",
+        "get" : {
+          "tags" : [ "MicroProfile Health" ],
+          "summary" : "The Liveness check of this application",
+          "description" : "Check the liveness of the application",
+          "operationId" : "microprofile_health_liveness",
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            },
+            "503" : {
+              "description" : "Service Unavailable",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            },
+            "500" : {
+              "description" : "Internal Server Error",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/health/ready" : {
+        "summary" : "Readiness checks are used to tell whether the application is able to process requests",
+        "description" : "MicroProfile Health - Readiness Endpoint",
+        "get" : {
+          "tags" : [ "MicroProfile Health" ],
+          "summary" : "The Readiness check of this application",
+          "description" : "Check the readiness of the application",
+          "operationId" : "microprofile_health_readiness",
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            },
+            "503" : {
+              "description" : "Service Unavailable",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            },
+            "500" : {
+              "description" : "Internal Server Error",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/health/startup" : {
+        "summary" : "Startup checks are an used to tell when the application has started",
+        "description" : "MicroProfile Health - Startup Endpoint",
+        "get" : {
+          "tags" : [ "MicroProfile Health" ],
+          "summary" : "The Startup check of this application",
+          "description" : "Check the startup of the application",
+          "operationId" : "microprofile_health_startup",
+          "responses" : {
+            "200" : {
+              "description" : "OK",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            },
+            "503" : {
+              "description" : "Service Unavailable",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            },
+            "500" : {
+              "description" : "Internal Server Error",
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/HealthCheckResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components" : {
+      "schemas" : {
+        "CreateWalletDto" : {
+          "required" : [ "password", "initialBalance" ],
+          "type" : "object",
+          "properties" : {
+            "password" : {
+              "pattern" : "\\S",
+              "type" : "string",
+              "example" : "123",
+              "nullable" : false
+            },
+            "initialBalance" : {
+              "type" : "integer",
+              "example" : 1.0E19,
+              "nullable" : false
+            }
+          }
+        },
+        "Credentials" : {
+          "type" : "object",
+          "properties" : {
+            "ecKeyPair" : {
+              "$ref" : "#/components/schemas/ECKeyPair"
+            },
+            "address" : {
+              "type" : "string"
+            }
+          }
+        },
+        "DeployContractDto" : {
+          "required" : [ "password", "file", "gasPrice", "gasLimit" ],
+          "type" : "object",
+          "properties" : {
+            "password" : {
+              "pattern" : "\\S",
+              "type" : "string",
+              "example" : "123",
+              "nullable" : false
+            },
+            "file" : {
+              "pattern" : "\\S",
+              "type" : "string",
+              "example" : "/path/to/UTC...",
+              "nullable" : false
+            },
+            "gasPrice" : {
+              "minimum" : 1,
+              "type" : "integer",
+              "example" : 1,
+              "nullable" : false
+            },
+            "gasLimit" : {
+              "minimum" : 1,
+              "type" : "integer",
+              "example" : 3000000,
+              "nullable" : false
+            }
+          }
+        },
+        "ECKeyPair" : {
+          "type" : "object",
+          "properties" : {
+            "privateKey" : {
+              "type" : "integer"
+            },
+            "publicKey" : {
+              "type" : "integer"
+            }
+          }
+        },
+        "Error" : {
+          "type" : "object",
+          "properties" : {
+            "code" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "message" : {
+              "type" : "string"
+            },
+            "data" : {
+              "type" : "string"
+            }
+          }
+        },
+        "EthSendTransaction" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "format" : "int64",
+              "type" : "integer"
+            },
+            "jsonrpc" : {
+              "type" : "string"
+            },
+            "result" : {
+              "type" : "string"
+            },
+            "error" : {
+              "$ref" : "#/components/schemas/Error"
+            },
+            "rawResponse" : {
+              "type" : "string"
+            },
+            "transactionHash" : {
+              "type" : "string"
+            }
+          }
+        },
+        "GetWalletAddressDto" : {
+          "required" : [ "password", "file" ],
+          "type" : "object",
+          "properties" : {
+            "password" : {
+              "pattern" : "\\S",
+              "type" : "string",
+              "example" : "123",
+              "nullable" : false
+            },
+            "file" : {
+              "pattern" : "\\S",
+              "type" : "string",
+              "example" : "/path/to/UTC...",
+              "nullable" : false
+            }
+          }
+        },
+        "TransferDto" : {
+          "required" : [ "fromAddress", "toAddress", "amount", "gasPrice", "gasLimit" ],
+          "type" : "object",
+          "properties" : {
+            "fromAddress" : {
+              "pattern" : "\\S",
+              "type" : "string",
+              "example" : "0x...",
+              "nullable" : false
+            },
+            "toAddress" : {
+              "pattern" : "\\S",
+              "type" : "string",
+              "example" : "0x...",
+              "nullable" : false
+            },
+            "amount" : {
+              "minimum" : 1,
+              "type" : "integer",
+              "example" : 1.0E19,
+              "nullable" : false
+            },
+            "gasPrice" : {
+              "minimum" : 1,
+              "type" : "integer",
+              "example" : 20000000000,
+              "nullable" : false
+            },
+            "gasLimit" : {
+              "minimum" : 1,
+              "type" : "integer",
+              "example" : 21000,
+              "nullable" : false
+            }
+          }
+        },
+        "WalletDto" : {
+          "type" : "object",
+          "properties" : {
+            "file" : {
+              "type" : "string"
+            },
+            "address" : {
+              "type" : "string"
+            }
+          }
+        },
+        "HealthCheckResponse" : {
+          "type" : "object",
+          "properties" : {
+            "data" : {
+              "type" : "object",
+              "nullable" : true
+            },
+            "name" : {
+              "type" : "string"
+            },
+            "status" : {
+              "$ref" : "#/components/schemas/HealthCheckStatus"
+            }
+          }
+        },
+        "HealthCheckStatus" : {
+          "enum" : [ "DOWN", "UP" ],
+          "type" : "string"
+        }
+      }
+    }
+  }
